@@ -262,14 +262,14 @@ class reserve:
     ):
         delta_day = 1 if self.reserve_next_day else 0
         if action:
-            day = datetime.datetime.utcnow() + datetime.timedelta(
-                days=delta_day, hours=8
-            )  # UTC时间 + 8小时得到北京时间，然后加delta_day
+            # GitHub Actions使用UTC时间，需要转换为北京时间并预约delta_day天后
+            utc_now = datetime.datetime.utcnow()
+            beijing_time = utc_now + datetime.timedelta(hours=8)
+            day = beijing_time + datetime.timedelta(days=delta_day)
             day = day.date()
         else:
-            day = datetime.date.today() + datetime.timedelta(
-                days=0 + delta_day
-            )  # 预约今天，修改days=1表示预约明天
+            # 本地运行直接使用系统时间
+            day = datetime.date.today() + datetime.timedelta(days=delta_day)
         parm = {
             "roomId": roomid,
             "startTime": times[0],
