@@ -2,7 +2,7 @@ name: Chaoxing Seat Reserve
 
 on:
   schedule:
-    - cron: "15 11 * * *"   # 每天 19:15（UTC+8）
+    - cron: "24 11 * * *"   # 每天 19:24（UTC+8）
   workflow_dispatch:       # 允许手动开/关
 
 jobs:
